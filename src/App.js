@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import GameBoard from "./Components/Battle/GameBoard";
 
-function App() {
+import StartMenu from "./Components/StartMenu/StartMenu";
+
+const App = () => {
+  const [mode, setMode] = useState("start");
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {mode === "start" && <StartMenu onStartClick={() => setMode("battle")} />}
+
+      {mode === "battle" && <GameBoard />}
+
+      {mode === "gameOver" && <>Game Over</>}
+     
+    </>
   );
-}
+};
 
 export default App;
