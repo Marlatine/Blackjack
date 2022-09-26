@@ -1,419 +1,420 @@
-export const Data = [
+ const Deck = [
   {
     suits: "❤️",
     card: "A",
     value: 11,
     color: "red",
     index: "1",
+    image: "./assets/A-H.png",
   },
   {
     suits: "❤️",
     card: "2",
-
     value: 2,
     color: "red",
     index: "2",
+    image: "./assets/2-H.png",
   },
   {
     suits: "❤️",
     card: "3",
-
     value: 3,
     color: "red",
     index: "3",
+    image: "./assets/3-H.png",
   },
   {
     suits: "❤️",
     card: "4",
-
     value: 4,
     color: "red",
     index: "4",
+    image: "./assets/4-H.png",
   },
   {
     suits: "❤️",
     card: "5",
-
     value: 5,
     color: "red",
     index: "5",
+    image: "./assets/5-H.png",
   },
   {
     suits: "❤️",
     card: "6",
-
     value: 6,
     color: "red",
     index: "6",
+    image: "./assets/6-H.png",
   },
   {
     suits: "❤️",
     card: "7",
-
     value: 7,
     color: "red",
     index: "7",
+    image: "./assets/7-H.png",
   },
   {
     suits: "❤️",
-    card: "8",
-
     value: 8,
     color: "red",
     index: "8",
+    card: "8",
+    image: "./assets/8-H.png",
   },
   {
     suits: "❤️",
     card: "9",
-
     value: 9,
     color: "red",
     index: "9",
+    image: "./assets/9-H.png",
   },
   {
     suits: "❤️",
     card: "10",
-
     value: 10,
     color: "red",
     index: "10",
+    image: "./assets/10-H.png",
   },
   {
     suits: "❤️",
-    card: "J",
-
     value: 10,
     color: "red",
     index: "11",
+    image: "./assets/J-H.png",
+    card: "J",
   },
   {
     suits: "❤️",
     card: "Q",
-
     value: 10,
     color: "red",
     index: "12",
+    image: "./assets/Q-H.png",
   },
   {
     suits: "❤️",
     card: "K",
-
     value: 10,
     color: "red",
     index: "13",
+    image: "./assets/K-H.png",
   },
   {
     suits: "🔶",
     card: "A",
-
     value: 11,
     color: "red",
     index: "14",
+    image: "./assets/A-D.png",
   },
   {
     suits: "🔶",
     card: "2",
-
     value: 2,
     color: "red",
     index: "15",
+    image: "./assets/2-D.png",
   },
   {
     suits: "🔶",
     card: "3",
-
     value: 3,
     color: "red",
     index: "16",
+    image: "./assets/3-D.png",
   },
   {
     suits: "🔶",
     card: "4",
-
     value: 4,
     color: "red",
     index: "17",
+    image: "./assets/4-D.png",
   },
   {
     suits: "🔶",
     card: "5",
-
     value: 5,
     color: "red",
     index: "18",
+    image: "./assets/5-D.png",
   },
   {
     suits: "🔶",
-    card: "6",
-
     value: 6,
     color: "red",
     index: "19",
+    image: "./assets/6-D.png",
+    card: "6",
   },
   {
     suits: "🔶",
     card: "7",
-
     value: 7,
     color: "red",
     index: "20",
+    image: "./assets/7-D.png",
   },
   {
     suits: "🔶",
     card: "8",
-
     value: 8,
     color: "red",
     index: "21",
+    image: "./assets/8-D.png",
   },
   {
     suits: "🔶",
     card: "9",
-
     value: 9,
     color: "red",
     index: "22",
+    image: "./assets/9-D.png",
   },
   {
     suits: "🔶",
     card: "10",
-
     value: 10,
     color: "red",
     index: "23",
+    image: "./assets/10-D.png",
   },
   {
     suits: "🔶",
     card: "J",
-
     value: 10,
     color: "red",
     index: "24",
+    image: "./assets/J-D.png",
   },
   {
     suits: "🔶",
     card: "Q",
-
     value: 10,
     color: "red",
     index: "25",
+    image: "./assets/Q-D.png",
   },
   {
     suits: "🔶",
     card: "K",
-
     value: 10,
     color: "red",
     index: "26",
+    image: "./assets/K-D.png",
   },
   {
     suits: "♣️",
     card: "A",
-
     value: 11,
     color: "black",
     index: "27",
+    image: "./assets/A-C.png",
   },
   {
     suits: "♣️",
     card: "2",
-
     value: 2,
     color: "black",
     index: "28",
+    image: "./assets/2-C.png",
   },
   {
     suits: "♣️",
     card: "3",
-
     value: 3,
     color: "black",
     index: "29",
+    image: "./assets/3-C.png",
   },
   {
     suits: "♣️",
     card: "4",
-
     value: 4,
     color: "black",
     index: "30",
+    image: "./assets/4-C.png",
   },
   {
     suits: "♣️",
     card: "5",
-
     value: 5,
     color: "black",
     index: "31",
+    image: "./assets/5-C.png",
   },
   {
     suits: "♣️",
     card: "6",
-
     value: 6,
     color: "black",
     index: "32",
+    image: "./assets/6-C.png",
   },
   {
     suits: "♣️",
     card: "7",
-
     value: 7,
     color: "black",
     index: "33",
+    image: "./assets/7-C.png",
   },
   {
     suits: "♣️",
     card: "8",
-
     value: 8,
     color: "black",
     index: "34",
+    image: "./assets/8-C.png",
   },
   {
     suits: "♣️",
     card: "9",
-
     value: 9,
     color: "black",
     index: "35",
+    image: "./assets/9-C.png",
   },
   {
     suits: "♣️",
     card: "10",
-
     value: 10,
     color: "black",
     index: "36",
+    image: "./assets/10-C.png",
   },
   {
     suits: "♣️",
     card: "J",
-
     value: 10,
     color: "black",
     index: "37",
+    image: "./assets/J-C.png",
   },
   {
     suits: "♣️",
     card: "Q",
-
     value: 10,
     color: "black",
     index: "38",
+    image: "./assets/Q-C.png",
   },
   {
     suits: "♣️",
     card: "K",
-
     value: 10,
     color: "black",
     index: "39",
+    image: "./assets/K-C.png",
   },
   {
     suits: "♠️",
     card: "A",
-
     value: 11,
     color: "black",
     index: "40",
+    image: "./assets/A-S.png",
   },
   {
     suits: "♠️",
     card: "2",
-
     value: 2,
     color: "black",
     index: "41",
+    image: "./assets/2-S.png",
   },
   {
     suits: "♠️",
     card: "3",
-
     value: 3,
     color: "black",
     index: "42",
+    image: "./assets/3-S.png",
   },
   {
     suits: "♠️",
     card: "4",
-
     value: 4,
     color: "black",
     index: "43",
+    image: "./assets/4-S.png",
   },
   {
     suits: "♠️",
     card: "5",
-
     value: 5,
     color: "black",
     index: "44",
+    image: "./assets/5-S.png",
   },
   {
     suits: "♠️",
     card: "6",
-
     value: 6,
     color: "black",
     index: "45",
+    image: "./assets/6-S.png",
   },
   {
     suits: "♠️",
-    card: "7",
-
     value: 7,
     color: "black",
     index: "46",
+    image: "./assets/7-S.png",
+    card: "7",
   },
   {
     suits: "♠️",
     card: "8",
-
     value: 8,
     color: "black",
     index: "47",
+    image: "./assets/8-S.png",
   },
   {
     suits: "♠️",
     card: "9",
-
     value: 9,
     color: "black",
     index: "48",
+    image: "./assets/9-S.png",
   },
   {
     suits: "♠️",
     card: "10",
-
     value: 10,
     color: "black",
     index: "49",
+    image: "./assets/10-S.png",
   },
   {
     suits: "♠️",
     card: "J",
-
     value: 10,
     color: "black",
     index: "50",
+    image: "./assets/J-S.png",
   },
   {
     suits: "♠️",
     card: "Q",
-
     value: 10,
     color: "black",
     index: "51",
+    image: "./assets/Q-S.png",
   },
   {
     suits: "♠️",
     card: "K",
-
     value: 10,
     color: "black",
     index: "52",
+    image: "./assets/K-S.png",
   },
 ];
 
-export default Data;
+export default Deck;

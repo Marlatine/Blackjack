@@ -13,7 +13,7 @@ const GameBoard = () => {
   const [score, setScore] = useState(0);
   const [dealerScore, setDealerScore] = useState(0);
   const [message, setMessage] = useState("");
-  
+
   const [name, setName] = useState([]);
   useEffect(() => {
     const names = localStorage.getItem("Name");
@@ -28,26 +28,37 @@ const GameBoard = () => {
   useEffect(() => {
     setScore(handSum);
     setDealerScore(dealerHandSum);
+    checkAce(handSum);
   }, [handSum, dealerHandSum]);
+
+  function checkAce() {
+    for (let i = 0; i < hand.length; i++) {
+      if (hand[0].card === "A" && hand[1].card === "A") {
+        handSum -= 10;
+      }
+      if (hand[i].card === "A" && handSum > 21) {
+        handSum -= 10;
+      }
+    }
+  }
 
   const handleHit = () => {
     const randomNumber = randomIntFromInterval(0, 51);
     setHand((hand) => [...hand, Deck[randomNumber[0]]]);
 
     const newPlayerCards = [...hand, Deck[randomNumber[0]]];
-    const newHandScore = calculateScore(newPlayerCards);
+    let newHandScore = calculateScore(newPlayerCards);
     setScore(newHandScore);
-
     if (newHandScore > 21) {
       setMessage("You lose!");
     }
   };
-  
+
   const handleHold = () => {
     let newDealerCards = dealerDeck;
     let newDealerScore = dealerHandSum;
 
-    while (newDealerScore < 17) {
+    if (newDealerScore < 17) {
       const randomNumber = randomIntFromInterval(0, 51);
       newDealerCards = [...dealerDeck, Deck[randomNumber[1]]];
       setDealerDeck((dealerDeck) => [...dealerDeck, Deck[randomNumber[1]]]);
@@ -56,23 +67,16 @@ const GameBoard = () => {
       setDealerDeck(newDealerCards);
       setDealerScore(newDealerScore);
     }
-    if (newDealerScore === 21) {
+    if (newDealerScore === 21 || handSum < newDealerScore) {
       setMessage("You lose!");
-      return;
     }
-    if (newDealerScore > 21) {
+    if (newDealerScore > 21 || handSum > newDealerScore) {
       setMessage("You win!");
-      return;
     }
     if (newDealerScore === handSum) {
       setMessage("It's a tie!");
-      return;
-    }
-    if (newDealerScore > handSum) {
-      setMessage("You lose!");
     }
   };
-
 
   return (
     <>
@@ -86,7 +90,7 @@ const GameBoard = () => {
           <h2 className="deck-title">Your hand ({score})</h2>
           <div className="hand-deck">
             {hand.map((index, value) => {
-              return <Card key={value} card={index.card} suits={index.suits} />;
+              return <Card key={value} image={index.image} />;
             })}
           </div>
         </div>
@@ -102,9 +106,7 @@ const GameBoard = () => {
             <h2 className="deck-title">Dealer's hand ({dealerScore})</h2>
             <div className="dealer-deck">
               {dealerDeck.map((index, value) => {
-                return (
-                  <Card key={value} card={index.card} suits={index.suits} />
-                );
+                return <Card key={value} image={index.image} />;
               })}
             </div>
           </div>
