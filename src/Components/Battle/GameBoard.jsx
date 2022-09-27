@@ -1,18 +1,31 @@
 import React, { useEffect, useState } from "react";
 import Card from "../Cards/Card";
 import { randomIntFromInterval } from "../Settings/randomCard";
-import { randomDealerDeck, randomDeck } from "../AllDecks/randomDeck";
+// import { randomDealerDeck, randomDeck } from "../AllDecks/randomDeck";
 import Deck from "../../data";
+import Data from "../../data";
 import "./gameBoard.css";
 import Button from "../Button/Button";
 import { calculateScore } from "./CalculateScore";
 
 const GameBoard = () => {
-  const [hand, setHand] = useState(randomDeck);
-  const [dealerDeck, setDealerDeck] = useState(randomDealerDeck);
+  const [hand, setHand] = useState([]);
+  const [dealerDeck, setDealerDeck] = useState([]);
   const [score, setScore] = useState(0);
   const [dealerScore, setDealerScore] = useState(0);
   const [message, setMessage] = useState("");
+  const [dealersTurn, setDealersTurn] = useState(false);
+  const [button, setButton] = useState(true);
+  const [dealButton, setDealButton] = useState(false);
+  const [highScore, setHighScore] = useState("");
+
+  function checkAce() {
+    hand.forEach((card) => {
+      if (handSum > 20 && card.card === "A") {
+        setScore(handSum - 10);
+      }
+    });
+  }
 
   const [name, setName] = useState([]);
   useEffect(() => {
@@ -22,25 +35,30 @@ const GameBoard = () => {
     }
   }, []);
 
+  const dealCards = () => {
+    let randomDeck = [];
+    let randomCard = Data[Math.floor(Math.random() * Data.length)];
+    let randomCardTwo = Data[Math.floor(Math.random() * Data.length)];
+    randomDeck.push(randomCard, randomCardTwo);
+    setHand(randomDeck);
+    let randomDealerDeck = [];
+    let randomDealerCard = Data[Math.floor(Math.random() * Data.length)];
+    randomDealerDeck.push(randomDealerCard);
+    setDealerDeck(randomDealerDeck);
+    setMessage("");
+    setDealersTurn(false);
+    setButton(false);
+    // setDealButton(true);
+  };
+
   let handSum = calculateScore(hand);
-  let dealerHandSum = calculateScore(randomDealerDeck);
+  let dealerHandSum = calculateScore(dealerDeck);
 
   useEffect(() => {
     setScore(handSum);
     setDealerScore(dealerHandSum);
-    checkAce(handSum);
+    checkAce();
   }, [handSum, dealerHandSum]);
-
-  function checkAce() {
-    for (let i = 0; i < hand.length; i++) {
-      if (hand[0].card === "A" && hand[1].card === "A") {
-        handSum -= 10;
-      }
-      if (hand[i].card === "A" && handSum > 21) {
-        handSum -= 10;
-      }
-    }
-  }
 
   const handleHit = () => {
     const randomNumber = randomIntFromInterval(0, 51);
@@ -54,28 +72,31 @@ const GameBoard = () => {
     }
   };
 
+  useEffect(() => {
+    if (dealersTurn === true) {
+      let newDealerCards = dealerDeck;
+      let newDealerScore = dealerHandSum;
+
+      if (newDealerScore < 17) {
+        const randomNumber = randomIntFromInterval(0, 51);
+        newDealerCards = [...dealerDeck, Deck[randomNumber[1]]];
+        setDealerDeck((dealerDeck) => [...dealerDeck, Deck[randomNumber[1]]]);
+        newDealerScore = calculateScore(newDealerCards);
+      }
+      if (newDealerScore === 21 || handSum < newDealerScore) {
+        setMessage("You lose!");
+      }
+      if (newDealerScore > 21 || handSum > newDealerScore) {
+        setMessage("You win!");
+      }
+      if (newDealerScore === handSum) {
+        setMessage("It's a tie!");
+      }
+    }
+  });
+
   const handleHold = () => {
-    let newDealerCards = dealerDeck;
-    let newDealerScore = dealerHandSum;
-
-    if (newDealerScore < 17) {
-      const randomNumber = randomIntFromInterval(0, 51);
-      newDealerCards = [...dealerDeck, Deck[randomNumber[1]]];
-      setDealerDeck((dealerDeck) => [...dealerDeck, Deck[randomNumber[1]]]);
-
-      newDealerScore = calculateScore(newDealerCards);
-      setDealerDeck(newDealerCards);
-      setDealerScore(newDealerScore);
-    }
-    if (newDealerScore === 21 || handSum < newDealerScore) {
-      setMessage("You lose!");
-    }
-    if (newDealerScore > 21 || handSum > newDealerScore) {
-      setMessage("You win!");
-    }
-    if (newDealerScore === handSum) {
-      setMessage("It's a tie!");
-    }
+    setDealersTurn(true);
   };
 
   return (
@@ -98,8 +119,9 @@ const GameBoard = () => {
           <div className="message-wrapper">
             <h3 className="message-text">Results: {message}</h3>
           </div>
-          <Button onClick={handleHit} disabled={""} text="Hit" />
-          <Button onClick={handleHold} disabled={""} text="Hold" />
+          <Button onClick={handleHit} disableBtn={button} text="Hit" />
+          <Button onClick={handleHold} disableBtn={button} text="Hold" />
+          <Button onClick={dealCards} disableBtn={""} text="Deal Cards" />
         </div>
         <div className="deck-title">
           <div className="dealer-hand-wrapper">
