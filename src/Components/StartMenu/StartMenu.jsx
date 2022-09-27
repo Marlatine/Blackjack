@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./startMenu.css";
 
 const StartMenu = ({ onStartClick }) => {
   const [name, setName] = useState("");
 
-  localStorage.setItem("Name", name);
+  useEffect(() => {
+    localStorage.setItem("Name", JSON.stringify(name));
+  }, [name]);
 
   return (
     <div className="main">
       <h1>Blackjack</h1>
-      <h2>Enter name</h2>
       <input
         className="name-input"
         value={name}

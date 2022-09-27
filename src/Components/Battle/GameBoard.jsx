@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "../Cards/Card";
 import { randomIntFromInterval } from "../Settings/randomCard";
-// import { randomDealerDeck, randomDeck } from "../AllDecks/randomDeck";
 import Deck from "../../data";
-import Data from "../../data";
 import "./gameBoard.css";
 import Button from "../Button/Button";
 import { calculateScore } from "./CalculateScore";
@@ -18,6 +16,7 @@ const GameBoard = () => {
   const [button, setButton] = useState(true);
   const [dealButton, setDealButton] = useState(false);
   const [highScore, setHighScore] = useState("");
+  const [currentHighScore, setCurrentHighScore] = useState(0);
 
   function checkAce() {
     hand.forEach((card) => {
@@ -29,7 +28,7 @@ const GameBoard = () => {
 
   const [name, setName] = useState([]);
   useEffect(() => {
-    const names = localStorage.getItem("Name");
+    const names = JSON.parse(localStorage.getItem("Name"));
     if (names) {
       setName(names);
     }
@@ -37,12 +36,12 @@ const GameBoard = () => {
 
   const dealCards = () => {
     let randomDeck = [];
-    let randomCard = Data[Math.floor(Math.random() * Data.length)];
-    let randomCardTwo = Data[Math.floor(Math.random() * Data.length)];
+    let randomCard = Deck[Math.floor(Math.random() * Deck.length)];
+    let randomCardTwo = Deck[Math.floor(Math.random() * Deck.length)];
     randomDeck.push(randomCard, randomCardTwo);
     setHand(randomDeck);
     let randomDealerDeck = [];
-    let randomDealerCard = Data[Math.floor(Math.random() * Data.length)];
+    let randomDealerCard = Deck[Math.floor(Math.random() * Deck.length)];
     randomDealerDeck.push(randomDealerCard);
     setDealerDeck(randomDealerDeck);
     setMessage("");
@@ -69,8 +68,11 @@ const GameBoard = () => {
     setScore(newHandScore);
     if (newHandScore > 21) {
       setMessage("You lose!");
+      setButton(true);
     }
   };
+
+  let playerCurrentHighScore = 0;
 
   useEffect(() => {
     if (dealersTurn === true) {
@@ -85,15 +87,21 @@ const GameBoard = () => {
       }
       if (newDealerScore === 21 || handSum < newDealerScore) {
         setMessage("You lose!");
+        setButton(true);
+        setDealButton(false);
       }
       if (newDealerScore > 21 || handSum > newDealerScore) {
         setMessage("You win!");
+        setButton(true);
+        setDealButton(false);
       }
       if (newDealerScore === handSum) {
         setMessage("It's a tie!");
+        setButton(true);
+        setDealButton(false);
       }
     }
-  });
+  }, [dealersTurn, dealerDeck, dealerHandSum, handSum]);
 
   const handleHold = () => {
     setDealersTurn(true);
@@ -101,36 +109,34 @@ const GameBoard = () => {
 
   return (
     <>
-      <div className="header-wrapper">
-        <h3>Player: {name}</h3>
-        <h1 className="title">Blackjack</h1>
-        <button className="highscore">Highscore</button>
-      </div>
-      <div className="main-wrapper">
-        <div className="your-hand-wrapper">
-          <h2 className="deck-title">Your hand ({score})</h2>
-          <div className="hand-deck">
-            {hand.map((index, value) => {
-              return <Card key={value} image={index.image} />;
-            })}
-          </div>
-        </div>
-        <div className="button-wrapper">
-          <div className="message-wrapper">
-            <h3 className="message-text">Results: {message}</h3>
-          </div>
-          <Button onClick={handleHit} disableBtn={button} text="Hit" />
-          <Button onClick={handleHold} disableBtn={button} text="Hold" />
-          <Button onClick={dealCards} disableBtn={""} text="Deal Cards" />
-        </div>
-        <div className="deck-title">
-          <div className="dealer-hand-wrapper">
-            <h2 className="deck-title">Dealer's hand ({dealerScore})</h2>
-            <div className="dealer-deck">
-              {dealerDeck.map((index, value) => {
-                return <Card key={value} image={index.image} />;
-              })}
+      <div className="background">
+        <h3 className="player-name-highscore">
+          Player: {name} | Highscore: {currentHighScore}
+        </h3>
+        <div className="gameboard-wrapper">
+            <div className="message-wrapper">
+              <h3 className="message-text">{message}</h3>
             </div>
+            <div className="dealer-hand-wrapper">
+              <div className="dealer-deck">
+                {dealerDeck.map((index, value) => {
+                  return <Card key={value} image={index.image} />;
+                })}
+              </div>
+              <h2 className="deck-title">Dealer's hand ({dealerScore})</h2>
+            </div>
+            <div className="button-wrapper">
+              <Button onClick={dealCards} disableBtn={""} text="Deal Cards" />
+              <Button onClick={handleHit} disableBtn={button} text="Hit" />
+              <Button onClick={handleHold} disableBtn={button} text="Hold" />
+            </div>
+            <div className="your-hand-wrapper">
+              <h2 className="deck-title">Your hand ({score})</h2>
+              <div className="hand-deck">
+                {hand.map((index, value) => {
+                  return <Card key={value} image={index.image} />;
+                })}
+              </div>
           </div>
         </div>
       </div>
