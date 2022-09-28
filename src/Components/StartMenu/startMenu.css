@@ -18,10 +18,12 @@
 h1 {
   font-size: 80px;
   color: white;
+  text-transform: uppercase;
+  margin-bottom: 50px;
 }
 
 input {
-  padding: 10px 5px;
+  padding: 10px 8px;
   border-radius: 15px;
   width: 190px;
 }
@@ -43,5 +45,7 @@ input {
   box-shadow: 0 4px 15px 8px rgba(255, 252, 54, 0.75);
 }
 
-
+input:focus {
+  outline: none;
+}
 

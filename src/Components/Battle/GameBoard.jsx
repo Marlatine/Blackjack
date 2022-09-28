@@ -109,14 +109,16 @@ const GameBoard = () => {
 
   return (
     <>
-      <div className="background">
+      <div className="wrapper">
+          <div className="player-name-highscore-container">
         <h3 className="player-name-highscore">
           Player: {name} | Highscore: {currentHighScore}
         </h3>
-        <div className="gameboard-wrapper">
+        </div>
             <div className="message-wrapper">
               <h3 className="message-text">{message}</h3>
             </div>
+        <div className="gameboard-wrapper">
             <div className="dealer-hand-wrapper">
               <div className="dealer-deck">
                 {dealerDeck.map((index, value) => {

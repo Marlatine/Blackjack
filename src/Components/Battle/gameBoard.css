@@ -1,14 +1,15 @@
-* {
+html {
   margin: 0;
   padding: 0;
-}
-
-.background {
   background-image: url(../../../public/assets/background-gameboard.jpg);
   background-size: cover;
   background-repeat: no-repeat;
-  width: 100vw;
-  height: 100vh;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .gameboard-wrapper {
@@ -20,8 +21,10 @@
 }
 
 .player-name-highscore {
+  position: absolute;
   color: white;
-  /* padding: 20px; */
+  padding: 20px;
+  float: left;
 }
 
 .message-wrapper {
@@ -30,7 +33,7 @@
 }
 
 .message-text {
-  font-size: 25px;
+  font-size: 18px;
 }
 
 .button-wrapper {
@@ -51,6 +54,7 @@
   display: flex;
   gap: 10px;
   margin-bottom: 10px;
+  height: 250px;
 }
 
 .your-hand-wrapper {
@@ -64,5 +68,5 @@
   display: flex;
   gap: 10px;
   margin-top: 10px;
+  height: 250px;
 }
-
