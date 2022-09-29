@@ -1,12 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./startMenu.css";
 
 const StartMenu = ({ onStartClick }) => {
   const [name, setName] = useState("");
 
-  useEffect(() => {
-    localStorage.setItem("Name", JSON.stringify(name));
-  }, [name]);
+  function findUserInLocal(name) {
+    window.localStorage.getItem(name);
+    if (!window.localStorage.getItem(name)) {
+      window.localStorage.setItem(name, 0);
+      return { name: name, score: window.localStorage.getItem(name) };
+    }
+  }
+
+  function handleStartClick() {
+    const user = findUserInLocal(name);
+    window.localStorage.setItem("currentUser", name);
+    onStartClick();
+  }
 
   return (
     <div className="main">
@@ -17,7 +27,7 @@ const StartMenu = ({ onStartClick }) => {
         placeholder="Enter name"
         onChange={(e) => setName(e.target.value)}
       ></input>
-      <button className="startButton" onClick={onStartClick}>
+      <button className="startButton" onClick={handleStartClick}>
         Start Game
       </button>
     </div>
