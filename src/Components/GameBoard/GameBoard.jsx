@@ -19,13 +19,13 @@ const GameBoard = ({ onStartClick }) => {
   const [currentHighScore, setCurrentHighScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
 
-  function checkAce() {
-    hand.forEach((card) => {
-      if (handSum > 21 && card.card === "A") {
-        setScore(handSum - 10);
-      }
-    });
-  }
+  // function checkAce() {
+  //   hand.forEach((card) => {
+  //     if (handSum > 21 && card.card === "A") {
+  //       setScore(handSum - 10);
+  //     }
+  //   });
+  // }
 
   const [name, setName] = useState();
 
@@ -89,7 +89,7 @@ const GameBoard = ({ onStartClick }) => {
   useEffect(() => {
     setScore(handSum);
     setDealerScore(dealerHandSum);
-    checkAce();
+    // checkAce();
   }, [handSum, dealerHandSum]);
 
   const handleHit = () => {
@@ -97,18 +97,21 @@ const GameBoard = ({ onStartClick }) => {
     setHand((hand) => [...hand, Deck[randomNumber[0]]]);
     const newPlayerCards = [...hand, Deck[randomNumber[0]]];
     let newHandScore = calculateScore(newPlayerCards);
+    console.log(newHandScore);
 
     for (let i = 0; i < newPlayerCards.length; i++) {
       if (newPlayerCards[i].card === "A" && newHandScore > 21) {
-        newHandScore -= 10;
-        setScore(newHandScore);
+        // newHandScore -= 10;
+        setScore((newHandScore -= 10));
+        console.log(newHandScore);
       }
-      if (newPlayerCards[i].card === "A") {
-        newHandScore -= 10;
-        setScore(newHandScore);
-      }
-      setScore(newHandScore);
-      checkAce(newHandScore);
+      // if (newPlayerCards[i].card === "A") {
+      //   newHandScore -= 10;
+      //   setScore(newHandScore);
+      //   console.log(newHandScore);
+      // }
+      // setScore(newHandScore);
+      // checkAce(newHandScore);
     }
     if (newHandScore > 21) {
       setMessage("You lose!");
@@ -145,7 +148,7 @@ const GameBoard = ({ onStartClick }) => {
         setDealButton(false);
       }
     }
-  }, [dealersTurn, dealerScore]);
+  }, [dealersTurn, dealerScore, dealerDeck, dealerHandSum, handSum, score]);
 
   const handleHold = () => {
     setDealersTurn(true);
